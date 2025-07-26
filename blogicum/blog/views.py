@@ -26,7 +26,7 @@ class PostListView(ListView):
     def get_queryset(self):
         posts = filtered_posts(True).annotate(
             comment_count=Count('comments')
-        ).order_by('-pub_date')
+        ).order_by('pub_date')
         return posts
 
 
