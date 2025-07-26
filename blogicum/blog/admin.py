@@ -1,10 +1,15 @@
 from django.contrib import admin
 
-from .models import Category, Post, Comment
+from .models import Category, Post, Comment, Profile
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
     pass
 
 
