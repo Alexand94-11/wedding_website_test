@@ -5,10 +5,12 @@
 {% block content %}
   <h1 class="mb-5 text-center ">Страница пользователя {{ profile.username }}</h1>
   <small>
-    <ul class="list-group list-group-horizontal justify-content-center mb-3">
+    <ul class="list-group list-group-vertical justify-content-center mb-3">
       <li class="list-group-item text-muted">Имя пользователя: {% if profile.get_full_name %}{{ profile.get_full_name }}{% else %}не указано{% endif %}</li>
       <li class="list-group-item text-muted">Регистрация: {{ profile.date_joined }}</li>
+      <li class="list-group-item text-muted">Email: {{ profile.email }}</li>
       <li class="list-group-item text-muted">Роль: {% if profile.is_staff %}Админ{% else %}Пользователь{% endif %}</li>
+      <li class="list-group-item text-muted">Список гостей: {{ profile.guests }}</li>
     </ul>
     <ul class="list-group list-group-horizontal justify-content-center">
       {% if user.is_authenticated and request.user == profile %}
@@ -18,11 +20,13 @@
     </ul>
   </small>
   <br>
-  <h3 class="mb-5 text-center">Публикации пользователя</h3>
-  {% for post in page_obj %}
-    <article class="mb-5">
-      {% include "includes/post_card.html" %}
-    </article>
-  {% endfor %}
+  {% if profile.is_staff %}
+    <h3 class="mb-5 text-center">Публикации админа</h3>
+    {% for post in page_obj %}
+      <article class="mb-5">
+        {% include "includes/post_card.html" %}
+      </article>
+    {% endfor %}
+  {% endif %}
   {% include "includes/paginator.html" %}
 {% endblock %}

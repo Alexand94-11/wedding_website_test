@@ -6,6 +6,19 @@ User = get_user_model()
 OPTIMAL_LEN = 25
 
 
+class Profile(models.Model):
+    username = models.CharField('Логин', max_length=150)
+    first_name = models.CharField('Имя', max_length=50)
+    last_name = models.CharField('Фамилия', max_length=50)
+    email = models.EmailField('Электронная почта', blank=True)
+    guests = models.TextField(
+        max_length=500,
+        blank=True,
+        verbose_name='Со мной будут',
+        help_text='Укажите количество и имена гостей, которые будут с вами.'
+    )
+
+
 class PublishedModel(models.Model):
     """Абстрактная модель. Добавляет флаг is_published и created_at."""
 
@@ -62,7 +75,7 @@ class Category(PublishedModel):
 
 
 class Post(PublishedModel):
-    """Вопрос."""
+    """Публикация."""
 
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
@@ -73,7 +86,7 @@ class Post(PublishedModel):
         User,
         on_delete=models.CASCADE,
         related_name='posts',
-        verbose_name='Автор вопроса'
+        verbose_name='Автор публикации'
     )
     category = models.ForeignKey(
         Category,

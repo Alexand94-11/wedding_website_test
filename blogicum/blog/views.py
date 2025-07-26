@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 
-from .forms import CommentForm, PostForm, ProfileEditForm
+from .forms import CommentForm, PostForm, ProfileEditForm, Profile
 from .models import Category, Comment, Post, User
 from .utils import filtered_posts
 
